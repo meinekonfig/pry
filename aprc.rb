@@ -1,0 +1,31 @@
+AwesomePrint.defaults = {
+  indent:    2,
+  index:     true,
+  html:      false,
+  multiline: true,
+  plain:     false,
+  raw:       false,
+  sort_keys: true,
+  limit:     false,
+  color:     {
+    args:       :greenish,
+    array:      :pale,
+    bigdecimal: :blue,
+    class:      :yellow,
+    date:       :greenish,
+    falseclass: :red,
+    fixnum:     :blue,
+    float:      :blue,
+    hash:       :pale,
+    keyword:    :cyan,
+    method:     :purpleish,
+    nilclass:   :red,
+    rational:   :blue,
+    string:     :yellowish,
+    struct:     :pale,
+    symbol:     :cyanish,
+    time:       :greenish,
+    trueclass:  :green,
+    variable:   :cyanish
+  }
+}
