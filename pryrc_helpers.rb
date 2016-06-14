@@ -37,7 +37,7 @@ module PryrcHelpers
   ## Progress bar for .pryrc
   # done is false, "==>\r"
   # done is true , "==> Load Completed!\n"
-  def pryrc_progress_bar(len=1, done=false)
+  def pryrc_progress_bar(len = 1, done = false)
     last = "\r"
     last = " Load Completed!\n" if done
     "|#{'====' * len}>#{last}"
@@ -68,13 +68,13 @@ module PryrcHelpers
       # 1201/31_556_926 = 0..1201
       # which yields { :year => 0 }.
       # repeat with time = 1200 seconds and next unit, which is month.
-      res[units[index]], time = time.divmod unit
+      res[units[index]], time = time.divmod(unit)
     end
     ## delete time unit with zero because won't need to print
     # 0 days 1 hour 30 minutes, just print 1 hour 30 minutes.
     # 0 second is left for a special case:
     # interpreted_time = 'ever' if interpreted_time == '0 second'
-    time_to_s res.delete_if { |key, val| val.zero? if key != :second }
+    time_to_s(res.delete_if) { |key, val| val.zero? if key != :second }
   end
 
   ## Add color to terminal text.
@@ -98,7 +98,7 @@ module PryrcHelpers
   ## Covert human-readable time hash to string.
   # { year: 3, month: 4, day: 15 } will result in
   # => "3 years 4 months 15 days"
-  def time_to_s time_hash
+  def time_to_s(time_hash)
     suffix = ''
     result = ''
     time_hash.each_pair do |unit, value|
@@ -164,7 +164,7 @@ end
 #     - 1.9.3
 #   script: rake test
 def y(obj)
-  puts obj.to_yaml
+  puts(obj.to_yaml)
 end
 
 ### Benchmark
@@ -172,7 +172,7 @@ end
 ## Benchmark.measure abstraction.
 # puts bm { "a"*1_000_000_000 }
 def bm(&block)
-  Benchmark.measure &block
+  Benchmark.measure(&block)
 end
 
 ## Generate Lorem Ipsum String.

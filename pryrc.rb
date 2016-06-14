@@ -22,8 +22,8 @@ ___pry_gems.___require_gems
 ## Enable Pry's show-method in Ruby 1.8.7
 # https://github.com/pry/pry/wiki/FAQ#how-can-i-use-show-method-with-ruby-187
 if RUBY_VERSION == "1.8.7"
-  safe_require 'ruby18_source_location', "Install this gem to enable Pry's show-method"
-  warn 'Ruby 1.8.7 is retired now, please consider upgrade to newer version of Ruby.'
+  safe_require('ruby18_source_location', "Install this gem to enable Pry's show-method")
+  warn('Ruby 1.8.7 is retired now, please consider upgrade to newer version of Ruby.')
 end
 
 # ==============================
@@ -32,7 +32,7 @@ end
 
 # https://github.com/pry/pry/wiki/FAQ#why-doesnt-pry-work-with-ruby-191
 if RUBY_VERSION == "1.9.1"
-  warn '1.9.1 has known issue with Pry. Please upgrade to 1.9.3-p448 or Ruby 2.0+.'
+  warn('1.9.1 has known issue with Pry. Please upgrade to 1.9.3-p448 or Ruby 2.0+.')
 end
 
 ## Why is my emacs shell output showing odd characters?
@@ -46,8 +46,13 @@ end
 # ==============================
 
 if RUBY_REVISION < 43780
-  print ___.colorize "YOUR RUBY #{RUBY_VERSION}-p#{RUBY_PATCHLEVEL} HAS VULNERABILITIES, PLEASE CONSIDER UPGRADE TO LATEST VERSION. ", 31
-  print ___.colorize "MORE INFORMATION: http://goo.gl/mmcAQz\n", 31
+  print(
+    ___.colorize(
+      "YOUR RUBY #{RUBY_VERSION}-p#{RUBY_PATCHLEVEL} HAS VULNERABILITIES, PLEASE CONSIDER UPGRADE TO LATEST VERSION. ",
+      31
+    )
+  )
+  print(___.colorize("MORE INFORMATION: http://goo.gl/mmcAQz\n", 31))
 end
 
 # ==============================
@@ -160,16 +165,16 @@ end
 
 # Exception
 Pry.config.exception_handler = proc do |output, exception, _|
-  puts ___.colorize "#{exception.class}: #{exception.message}", 31
-  puts ___.colorize "from #{exception.backtrace.first}", 31
+  puts(___.colorize "#{exception.class}: #{exception.message}", 31)
+  puts(___.colorize "from #{exception.backtrace.first}", 31)
 end
 
 # ==============================
 #   Custom Commands
 # ==============================
-Pry::Commands.create_command "format_html" do
-  description "Format the html output for [ARGS]"
-  command_options requires_gem: ['nokogiri']
+Pry::Commands.create_command("format_html") do
+  description("Format the html output for [ARGS]")
+  command_options(requires_gem: ['nokogiri'])
 
   def process
     @object_to_interrogate = args.empty? ? target_self : target.eval(args.join(" "))
@@ -185,17 +190,17 @@ end
 # ==============================
 
 # Ever get lost in pryland? try w!
-Pry.config.commands.alias_command 'w', 'whereami'
+Pry.config.commands.alias_command('.w', 'whereami')
 
 # Clear Screen
-Pry.config.commands.alias_command '.clr', '.clear'
+Pry.config.commands.alias_command('.clr', '.clear')
 
 # Byebug
 if defined? PryByebug
-  Pry.config.commands.alias_command 'c', 'continue'
-  Pry.config.commands.alias_command 's', 'step'
-  Pry.config.commands.alias_command 'n', 'next'
-  Pry.config.commands.alias_command 'f', 'finish'
+  Pry.config.commands.alias_command('.c', 'continue')
+  Pry.config.commands.alias_command('.s', 'step')
+  Pry.config.commands.alias_command('.n', 'next')
+  Pry.config.commands.alias_command('.f', 'finish')
 end
 
 # ==============================
@@ -205,22 +210,22 @@ Pry.active_sessions = 0
 
 Pry.config.hooks.add_hook(:before_session, :welcome) do
     if Pry.active_sessions.zero?
-      puts "Hello #{___.user}! I'm Pry #{Pry::VERSION}."
-      puts "I'm Loading Ruby #{RUBY_VERSION}-p#{RUBY_PATCHLEVEL} and everything else for you:"
+      puts("Hello #{___.user}! I'm Pry #{Pry::VERSION}.")
+      puts("I'm Loading Ruby #{RUBY_VERSION}-p#{RUBY_PATCHLEVEL} and everything else for you:")
 
       ### Fake Loading Progress bar
       # |====================>
       [*1..9].each do |e|
-        print ___.pryrc_progress_bar e
+        print(___.pryrc_progress_bar(e))
         $stdout.flush
-        sleep ___.pryrc_speed
+        sleep(___.pryrc_speed)
       end
 
       # Print |==================> Load Completed!
       # 9 is to keep progress bar have the same length (see above each loop)
-      print ___.pryrc_progress_bar 9, true
+      print(___.pryrc_progress_bar 9, true)
 
-      puts ___.welcome_messages
+      puts(___.welcome_messages)
     end
   Pry.active_sessions += 1
 end
@@ -232,7 +237,7 @@ Pry.config.hooks.add_hook(:after_session, :farewell) do
   Pry.active_sessions -= 1
   if Pry.active_sessions.zero?
     if ___.true_true_or_false
-      puts ___.farewell_messages
+      puts(___.farewell_messages)
     else
       interpreted_time = ___.interpret_time(Time.now - pryrc_start_time)
       interpreted_time = 'ever' if interpreted_time == '0 second'
